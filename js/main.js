@@ -1,7 +1,12 @@
 const descriptions = [
   'описание 1',
   'описание 2',
-  'описание 3'
+  'описание 3',
+  'описание 4',
+  'описание 5',
+  'описание 6',
+  'описание 7',
+  'описание 8'
 ];
 
 const messages = [
@@ -37,26 +42,42 @@ const pickIntegerInRange = (min, max) => {
 };
 
 //функия для генерации рандомного id в указанном диапозоне без повторений
-const createId = () => {
+/*const createId = () => {
   const previousId = [];
 
-  let currentId = pickIntegerInRange(1, 25);
+  return function () {
+    let currentId = pickIntegerInRange(1, 25);
 
-  if (previousId >= 25) {
-    return null;
-  }
+    if (previousId.length >= 25) {
+      return null;
+    }
 
-  while (previousId.includes(currentId)) {
-    currentId = pickIntegerInRange(1, 25);
-  }
+    while (previousId.includes(currentId)) {
+      currentId = pickIntegerInRange(1, 25);
+    }
 
-  previousId.push(currentId);
-  return currentId;
+    previousId.push(currentId);
+    return previousId;
+  };
+};
+*/
+
+const createIdGeneration = () => {
+  let lastGeneratedId = 0;
+
+  return () => {
+    lastGeneratedId += 1;
+    if (lastGeneratedId > 30) {
+      lastGeneratedId = 1;
+    }
+    return lastGeneratedId;
+  };
 };
 
+const generateCommentId = createIdGeneration();
 //создаст объект комментария
 const createCommentState = () => {
-  const id = createId();
+  const id = generateCommentId();
   const avatar = `img/avatar-${pickIntegerInRange(1, 6)}.svg`;
   const message = pickItemFromList(messages);
   const name = pickItemFromList(names);
@@ -72,21 +93,21 @@ const createCommentStateList = () => {
 };
 
 
+const generatePhotoId = createIdGeneration();
 //создаст объект фотографии
 const createImageState = () => {
-  const id = createId();
+  const id = generatePhotoId();
   const url = `photos/${pickIntegerInRange(1, 25)}.jpg`;
   const description = pickItemFromList(descriptions);
   const likes = pickIntegerInRange(15, 200);
-  const comment = createCommentStateList(pickIntegerInRange(0, 25));
+  const comment = createCommentStateList(pickIntegerInRange(0, 30));
 
   return {id, url, description, likes, comment};
 };
 
-
 //создаст список объектов фотографий
 const createImageStateList = () => {
-  const imagesList = Array.from({length: pickIntegerInRange(0, 30)}, createImageState);
+  const imagesList = Array.from({length: 25}, createImageState);
 
   return imagesList;
 };
