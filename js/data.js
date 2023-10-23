@@ -1,4 +1,5 @@
-import {createImageStateList} from './js/data.js';
+import {pickItemFromList, pickIntegerInRange, createIdGeneration} from './util.js';
+
 const descriptions = [
   'описание 1',
   'описание 2',
@@ -28,57 +29,11 @@ const names = [
   'Екатерина'
 ];
 
-//функция для вычисления рандомного элемента в массиве
-const pickItemFromList = (list) => {
-  const index = Math.floor(Math.random() * list.length);
-
-  return list[index];
-};
-
-//функция для вычисления рандомного числа в заданном диапозоне
-const pickIntegerInRange = (min, max) => {
-  const value = min + Math.random() * (max - min);
-
-  return Math.round(value);
-};
-
-//функия для генерации рандомного id в указанном диапозоне без повторений
-/*const createId = () => {
-  const previousId = [];
-
-  return function () {
-    let currentId = pickIntegerInRange(1, 25);
-
-    if (previousId.length >= 25) {
-      return null;
-    }
-
-    while (previousId.includes(currentId)) {
-      currentId = pickIntegerInRange(1, 25);
-    }
-
-    previousId.push(currentId);
-    return previousId;
-  };
-};
-*/
-
-const createIdGeneration = () => {
-  let lastGeneratedId = 0;
-
-  return () => {
-    lastGeneratedId += 1;
-    if (lastGeneratedId > 30) {
-      lastGeneratedId = 1;
-    }
-    return lastGeneratedId;
-  };
-};
 
 const generateCommentId = createIdGeneration();
 //создаст объект комментария
 const createCommentState = () => {
-  const id = generateCommentId();
+  const id = generateCommentId(1, 30);
   const avatar = `img/avatar-${pickIntegerInRange(1, 6)}.svg`;
   const message = pickItemFromList(messages);
   const name = pickItemFromList(names);
@@ -97,7 +52,7 @@ const createCommentStateList = () => {
 const generatePhotoId = createIdGeneration();
 //создаст объект фотографии
 const createImageState = () => {
-  const id = generatePhotoId();
+  const id = generatePhotoId(1, 25);
   const url = `photos/${pickIntegerInRange(1, 25)}.jpg`;
   const description = pickItemFromList(descriptions);
   const likes = pickIntegerInRange(15, 200);
@@ -113,4 +68,4 @@ const createImageStateList = () => {
   return imagesList;
 };
 
-createImageStateList();
+export {createImageStateList};
