@@ -42,3 +42,32 @@ function padStart (string, minLength, pad) {
 }
 
 padStart('1', 2, '0');
+
+/*
+'8:00' - начало рабочего дня
+'17:30' - конец рабочего дня
+'14:00' - начало встречи
+90 - продолжительность встречи в минутах
+
+имяФункции('08:00', '17:30', '14:00', 90); // true
+имяФункции('8:0', '10:0', '8:0', 120);     // true
+имяФункции('08:00', '14:30', '14:00', 90); // false
+имяФункции('14:00', '17:30', '08:0', 90);  // false
+имяФункции('8:00', '17:30', '08:00', 900); // false
+*/
+const calculatePossibility = (startOfWorkingDay, endOfWorkingDay, startOfMeeting, meetingDuration) => {
+
+  const durationOfWorkingDay = (parseInt(endOfWorkingDay, 10) * 60) - (parseInt(startOfWorkingDay, 10) * 60);
+  if (durationOfWorkingDay < meetingDuration) {
+    return false;
+  }
+  const endOfMeeting = (parseInt(startOfMeeting, 10) * 60) + meetingDuration;
+  if (endOfMeeting > durationOfWorkingDay) {
+    return false;
+  }
+
+  return true;
+
+};
+
+calculatePossibility ();
