@@ -56,9 +56,9 @@ const createImageState = () => {
   const url = `photos/${pickIntegerInRange(1, 25)}.jpg`;
   const description = pickItemFromList(descriptions);
   const likes = pickIntegerInRange(15, 200);
-  const comment = createCommentStateList(pickIntegerInRange(0, 30));
+  const comments = createCommentStateList(pickIntegerInRange(0, 30));
 
-  return {id, url, description, likes, comment};
+  return {id, url, description, likes, comments};
 };
 
 //создаст список объектов фотографий
