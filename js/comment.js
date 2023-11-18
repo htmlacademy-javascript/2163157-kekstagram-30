@@ -1,9 +1,14 @@
+const COMMENTS_COUNT_SHOW = 5;
+
 const bigPictureElement = document.querySelector('.big-picture');
 
 const commentsListElement = bigPictureElement.querySelector('.social__comments');
 const commentCountElement = bigPictureElement.querySelector('.social__comment-count');
 const totalCommentCountElement = bigPictureElement.querySelector('.social__comment-total-count');
 const commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
+
+let commentsCountShown = 0;
+let comments = [];
 
 const commentElement = document
   .querySelector('#comment')
@@ -21,7 +26,10 @@ const createComment = ({avatar, message, name}) => {
 };
 
 const renderComments = (comments) => {
-  //TODO рендер комментариев
+  commentsCountShown += COMMENTS_COUNT_SHOW;
+
+  if (commentsCountShown)
+
   commentsListElement.innerHTML = '';
   const fragment = document.createDocumentFragment();
   comments.forEach((item) => {
