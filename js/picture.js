@@ -1,3 +1,4 @@
+
 const COMMENTS_COUNT_SHOW = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
@@ -33,20 +34,20 @@ const renderComments = (/*comments*/) => {
     commentsLoaderElement.classList.add('hidden');
     commentsCountShown = comments.length;
   } else {
-    commentsLoaderElement.classList.remove('hidden')
+    commentsLoaderElement.classList.remove('hidden');
   }
 
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsCountShown; i++) {
     const comment = createComment(comments[i]);
     fragment.append(comment);
-  };
+  }
 
   commentsListElement.innerHTML = '';
   commentsListElement.append(fragment);
 
-  commentCountElement.textContent = commentsCountShown
-  totalCommentCountElement.textContent = comments.length
+  commentCountElement.textContent = commentsCountShown;
+  totalCommentCountElement.textContent = comments.length;
 
 };
 
@@ -68,7 +69,7 @@ const showPicture = (pictureData) => {
   if (comments.length > 0) {
     renderComments();
 
-  };
+  }
 
   renderPicture(pictureData);
 };

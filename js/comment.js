@@ -1,3 +1,4 @@
+/*
 const COMMENTS_COUNT_SHOW = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
@@ -8,7 +9,7 @@ const totalCommentCountElement = bigPictureElement.querySelector('.social__comme
 const commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
 
 let commentsCountShown = 0;
-let comments = [];
+//let comments = [];
 
 const commentElement = document
   .querySelector('#comment')
@@ -28,7 +29,9 @@ const createComment = ({avatar, message, name}) => {
 const renderComments = (comments) => {
   commentsCountShown += COMMENTS_COUNT_SHOW;
 
-  if (commentsCountShown)
+  if (commentsCountShown) {
+
+  }
 
   commentsListElement.innerHTML = '';
   const fragment = document.createDocumentFragment();
@@ -38,6 +41,7 @@ const renderComments = (comments) => {
   });
 
   commentsListElement.append(fragment);
+
 };
 
 const initCommentList = () => {
@@ -46,3 +50,4 @@ const initCommentList = () => {
 };
 
 export {renderComments, initCommentList};
+*/
