@@ -1,4 +1,16 @@
-import {createImageStateList} from './data.js';
 import {renderGallery} from './gallery.js';
+import './form.js';
+import { loadPictures } from './api.js';
+import { showErrorMessage } from './util.js';
 
-renderGallery(createImageStateList());
+const bootstrap = async () => {
+  try {
+    const pictures = await loadPictures();
+    renderGallery(pictures);
+  } catch {
+    showErrorMessage();
+  }
+};
+
+bootstrap();
+
