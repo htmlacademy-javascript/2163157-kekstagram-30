@@ -92,7 +92,7 @@ const onCancelButtonClick = () => {
 const onFileInputChange = () => {
   showModal();
 };
-/*
+
 const sendForm = async (formElement) => {
   if (!pristine.validate()) {
     return;
@@ -106,15 +106,6 @@ const sendForm = async (formElement) => {
   } catch {
     showErrorMessage();
     toggleSubmitButton(false);
-  }
-};*/
-
-async function sendForm(formElement) {
-  if (pristine.validate()) {
-    toggleSubmitButton(true);
-    await sendPicture(new FormData(formElement));
-    toggleSubmitButton(false);
-    hideModal();
   }
 };
 
