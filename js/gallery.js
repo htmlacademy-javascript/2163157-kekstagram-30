@@ -14,7 +14,6 @@ const renderGallery = (pictures) => {
     evt.preventDefault();
     const thumbnailId = +thumbnail.dataset.thumbnailId;
     const pictureData = pictures.find(({id}) => id === thumbnailId);
-    // TODO: Написать функцию показа полного изображения
     showPicture(pictureData);
 
   });
