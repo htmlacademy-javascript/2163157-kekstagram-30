@@ -1,4 +1,3 @@
-
 const COMMENTS_COUNT_SHOW = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
@@ -27,7 +26,7 @@ const createComment = ({avatar, message, name}) => {
   return newComment;
 };
 
-const renderComments = (/*comments*/) => {
+const renderComments = () => {
   commentsCountShown += COMMENTS_COUNT_SHOW;
 
   if (commentsCountShown >= comments.length) {
