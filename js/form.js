@@ -13,7 +13,6 @@ const DEFAULT_SCALE_VALUE = 1;
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-
 const bodyElement = document.querySelector('body');
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
@@ -22,7 +21,6 @@ const imageUploadCancelButton = imageUploadForm.querySelector('.img-upload__canc
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
 const effectsPreviews = imageUploadForm.querySelectorAll('.effects__preview');
 
-
 const currentPictureZoomValue = document.querySelector('.scale__control--value');
 
 const pictureScaleContainer = document.querySelector('.img-upload__scale,  scale');
@@ -30,18 +28,14 @@ const picturePreviewElement = document.querySelector('.img-upload__preview img')
 const scaleControlReduceButton = document.querySelector('.scale__control--smaller');
 const scaleControlIncreaseButton = document.querySelector('.scale__control--bigger');
 
-
 const hashtagsTextInputField = document.querySelector('.text__hashtags');
 const commentTextInputField = document.querySelector('.text__description');
-
 
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
 });
-
-// кнопка отправки формы
 
 const toggleSubmitButton = (isDisabled) => {
   submitButton.disabled = isDisabled;
@@ -51,9 +45,6 @@ const toggleSubmitButton = (isDisabled) => {
     submitButton.textContent = 'Опубликовать';
   }
 };
-
-// открытие и закрытие формы загрузки изображения:
-
 
 document.addEventListener('keydown', onDocumentKeydown);
 
@@ -81,7 +72,6 @@ const showImageEditorForm = () => {
   imageUploadInput.addEventListener ('change', onImageUploadFieldChange);
 };
 
-
 const onImageUploadCancelButtonClick = () => {
   imageUploadForm.reset();
   pristine.reset();
@@ -100,9 +90,6 @@ function onDocumentKeydown (evt) {
 }
 
 imageUploadCancelButton.addEventListener('click', onImageUploadCancelButtonClick);
-
-
-//валидация
 
 const normalizeHashtags = (hashtagString) => hashtagString
   .trim()
@@ -180,8 +167,6 @@ commentTextInputField.addEventListener('keydown', (evt) => {
   evt.stopPropagation();
 });
 
-//  изменение размера превью
-
 const onPictureScaleContainerClick = (evt) => {
   const currentValue = parseInt(currentPictureZoomValue.value, 10);
 
@@ -203,6 +188,5 @@ const resetPictureZoomValue = () => {
 };
 
 pictureScaleContainer.addEventListener('click', onPictureScaleContainerClick);
-
 
 export {showImageEditorForm, setImageUploadFormSubmit, onImageUploadCancelButtonClick, resetPictureZoomValue };

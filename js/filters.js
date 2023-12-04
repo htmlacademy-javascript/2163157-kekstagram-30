@@ -59,4 +59,5 @@ const initializeFilter = (data) => {
     debouncedRepaint(event, FilterEnum.DISCUSSED, data);
   });
 };
+
 export {initializeFilter};
