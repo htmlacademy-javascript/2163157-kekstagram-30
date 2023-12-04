@@ -1,15 +1,17 @@
-import { renderGallery } from './gallery.js';
-import { showImageEditorForm, setImageUploadFormSubmit, onImageUploadCancelButtonClick } from './form.js';
-import './server.js';
-import { getData } from './server.js';
-import { initializeFilter } from './filters.js';
+import {renderGallery} from './gallery.js';
+import './form.js';
+import { loadPictures } from './api.js';
+import { showErrorMessage } from './util.js';
+import { initFilter } from './filters.js';
 
-getData()
-  .then ((pictures) => {
+const bootstrap = async () => {
+  try {
+    const pictures = await loadPictures();
     renderGallery(pictures);
-    initializeFilter(pictures);
-  });
+    initFilter(pictures);
+  } catch {
+    showErrorMessage();
+  }
+};
 
-showImageEditorForm();
-
-setImageUploadFormSubmit(onImageUploadCancelButtonClick);
+bootstrap();

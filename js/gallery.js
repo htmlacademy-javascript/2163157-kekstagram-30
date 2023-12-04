@@ -1,25 +1,24 @@
-import { renderThumbnails } from './render-thumbnails.js';
-import { showPicture } from './picture.js';
+import {renderThumbnails} from './thumbnails';
+import {showPicture} from './picture';
 
-const picturesContainer = document.querySelector('.pictures');
+const container = document.querySelector('.pictures');
 
 const renderGallery = (pictures) => {
-  picturesContainer.addEventListener('click', (evt) => {
-    const thumbnail = evt.target.closest ('[data-thumbnail-id]');
+  container.addEventListener('click', (evt) => {
+    const thumbnail = evt.target.closest('[data-thumbnail-id]');
 
-    if (! thumbnail) {
+    if (!thumbnail) {
       return;
     }
-    evt.preventDefault();
 
+    evt.preventDefault();
     const thumbnailId = +thumbnail.dataset.thumbnailId;
     const pictureData = pictures.find(({id}) => id === thumbnailId);
-
+    // TODO: Написать функцию показа полного изображения
     showPicture(pictureData);
 
   });
-  renderThumbnails(pictures, picturesContainer);
-
+  renderThumbnails(pictures, container);
 };
 
 export { renderGallery };
