@@ -15,7 +15,6 @@ const pictureEffectPhobos = pictureModalElement.querySelector('#effect-phobos');
 const pictureEffectHeat = pictureModalElement.querySelector('#effect-heat');
 const effectDefaultValue = pictureModalElement.querySelector('#effect-none');
 
-
 const hideSliderContainer = () => {
   effectSliderContainer.classList.add('hidden');
 };
