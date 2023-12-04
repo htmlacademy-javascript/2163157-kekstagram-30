@@ -14,7 +14,6 @@ const showErrorMessage = () => {
   }, ERROR_MESSAGE_TIMEOUT);
 };
 
-
 function debounce (callback, timeoutDelay = 500) {
   let timeoutId;
 
