@@ -1,39 +1,115 @@
-const ERROR_MESSAGE_TIMEOUT = 5000;
+const ALERT_SHOW_TIME = 5000;
 
-const errorMessageTemplate = document
+const pictureUploadSuccessMessage = document
+  .querySelector('#success')
+  .content.
+  querySelector('.success');
+
+const pictureDownloadErrorMessage = document
   .querySelector('#data-error')
   .content
   .querySelector('.data-error');
 
-const showErrorMessage = () => {
-  const errorElement = errorMessageTemplate.cloneNode(true);
-  document.body.append(errorElement);
+const pictureUploadErrorMessage = document
+  .querySelector('#error')
+  .content.
+  querySelector('.error');
 
-  setTimeout(() => {
-    errorElement.remove();
-  }, ERROR_MESSAGE_TIMEOUT);
+const getRandomInteger = (min, max) => {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
 };
 
-// Функция взята из интернета и доработана
-// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+const createIdGenerator = () => {
+  let lastGeneratedId = 0;
+
+  return () => {
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
+};
+
+const isEnterKeyCheck = (evt) => evt.key === 'Enter';
+
+const showSuccessUploadMessage = () => {
+  document.body.append(pictureUploadSuccessMessage);
+  const onSuccessUploadOkButtonClick = (evt) => {
+    const successUploadCloseButton = document.querySelector('.success__button');
+    if (evt.target === successUploadCloseButton) {
+      pictureUploadSuccessMessage.remove();
+      document.body.removeEventListener('keydown', onDocumentKeydown);
+    }
+  };
+  pictureUploadSuccessMessage.addEventListener('click', onSuccessUploadOkButtonClick);
+  function onDocumentKeydown (event) {
+    if (event.key === 'Escape') {
+      pictureUploadSuccessMessage.remove();
+      document.body.removeEventListener('keydown', onDocumentKeydown);
+    }
+  }
+  document.body.addEventListener('keydown', onDocumentKeydown);
+
+  function onBodyClick (evt) {
+    if (!(evt.target.closest('.success__inner'))) {
+      pictureUploadSuccessMessage.remove();
+      document.body.removeEventListener('click', onBodyClick);
+    }
+  }
+  document.body.addEventListener('click', onBodyClick);
+
+};
+
+const showDownloadErrorAlert = () => {
+  const alertContainer = pictureDownloadErrorMessage.cloneNode(true);
+  document.body.append(alertContainer);
+  setTimeout (() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const showUploadErrorAlert = () => {
+  document.body.append(pictureUploadErrorMessage);
+
+  const onUploadErrorMessageClick = (evt) => {
+    const uploadErrorMessageButton = document.querySelector('.error__button');
+    if (evt.target === uploadErrorMessageButton) {
+      document.body.removeEventListener('click', onUploadErrorMessageClick);
+      pictureUploadErrorMessage.remove();
+    }
+  };
+  pictureUploadErrorMessage.addEventListener('click', onUploadErrorMessageClick);
+  function onDocumentKeydown (event) {
+    if (event.key === 'Escape') {
+      pictureUploadErrorMessage.remove();
+      document.body.removeEventListener('keydown', onDocumentKeydown);
+    }
+  }
+  document.body.addEventListener('keydown', onDocumentKeydown);
+  function onBodyClick (evt) {
+    if (!(evt.target.closest('.error__inner'))) {
+      pictureUploadErrorMessage.remove();
+      document.body.removeEventListener('click', onBodyClick);
+    }
+  }
+  document.body.addEventListener('click', onBodyClick);
+};
 
 function debounce (callback, timeoutDelay = 500) {
-  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
-  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+
   let timeoutId;
 
   return (...rest) => {
-    // Перед каждым новым вызовом удаляем предыдущий таймаут,
-    // чтобы они не накапливались
+
     clearTimeout(timeoutId);
 
-    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
 
-    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
-    // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
 
-
-export {showErrorMessage, debounce};
+export {getRandomArrayElement, createIdGenerator, getRandomInteger, isEnterKeyCheck as isEnterKey, showUploadErrorAlert, showDownloadErrorAlert, showSuccessUploadMessage, debounce};
